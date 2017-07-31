@@ -69,7 +69,7 @@ public class Job {
       case "sg" : result = inputGraph.run(new SemiClusteringSG(semiParams, env)); break;
       case "vc" : result = inputGraph.run(new SemiClusteringSG(semiParams, env)); break;
 
-      default : throw new IllegalArgumentException("choose sg for scattergather or vc for vertex-centric/pregel");
+      default : throw new IllegalArgumentException("choose: sg for scattergather or vc for vertex-centric/pregel");
     }
     System.err.println("num of vertices: " + result.numberOfVertices());
   }

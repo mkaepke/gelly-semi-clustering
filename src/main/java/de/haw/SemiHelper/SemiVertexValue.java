@@ -28,21 +28,6 @@ public class SemiVertexValue implements Serializable {
     this.params = params;
   }
 
-  /**
-   * Erzeugt das initiale {@link SemiCluster}, welches nur den eigenen Knoten beinhaltet
-   */
-  public void createInitSemiCluster(Double vid, Set<Edge<Double, Double>> edges) {
-    SemiCluster semiCluster = new SemiCluster(params);
-    semiCluster.addVertex(vid, edges);
-
-    if (clusters.size() >= params.getTopXOfClusters()) {
-      clusters.add(semiCluster);
-      clusters.pollLast();
-    } else {
-      clusters.add(semiCluster);
-    }
-  }
-
   public void addEdges(Set<Edge<Double, Double>> edgeSet) {
     this.edgeSet.addAll(edgeSet);
   }

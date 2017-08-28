@@ -40,7 +40,7 @@ public class SemiCluster implements Comparable<SemiCluster>, Serializable {
     }
   }
 
-  void calculateScore() {
+  public void calculateScore() {
     /**
      * 		(I_c - f_b * B_c)
      * S =	 _________________
@@ -62,12 +62,6 @@ public class SemiCluster implements Comparable<SemiCluster>, Serializable {
     return vertexMap;
   }
 
-  /**
-   * @return Score des Clusters (wird in dem Moment erst berechnet)
-   */
-  public Double getSemiScore() {
-    return score;
-  }
 
   @Override
   public String toString() {

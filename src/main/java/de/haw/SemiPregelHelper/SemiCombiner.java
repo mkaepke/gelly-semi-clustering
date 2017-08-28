@@ -17,12 +17,13 @@ public class SemiCombiner extends MessageCombiner<Double, TreeSet<SemiCluster>> 
   @Override
   public void combineMessages(MessageIterator<TreeSet<SemiCluster>> inMessages) throws Exception {
 
-    TreeSet<SemiCluster> result = new TreeSet<>();
-
-    for (TreeSet<SemiCluster> treeSet : inMessages) {
-      result.addAll(treeSet);
-    }
-
-    sendCombinedMessage(result);
+    // combine Funktion wird nicht benötigt -> Faktor 10 schnellere Laufzeit
+//    TreeSet<SemiCluster> result = new TreeSet<>();
+//
+//    for (TreeSet<SemiCluster> treeSet : inMessages) {
+//      result.addAll(treeSet);
+//    }
+//
+//    sendCombinedMessage(result);
   }
 }

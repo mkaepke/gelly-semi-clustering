@@ -21,7 +21,7 @@ public class SemiClusteringTests {
     }
 
     @Test
-    public void testPrepareEdeList() throws Exception {
+    public void testPrepareEdeList_reduced() throws Exception {
         List<Tuple3<Double, Double, Double>> edgeList = new ArrayList<>();
         edgeList.add(Tuple3.of(1.0, 2.0, 1.0));
         edgeList.add(Tuple3.of(1.0, 1.0, 1.0));
@@ -45,5 +45,24 @@ public class SemiClusteringTests {
         Assert.assertEquals(expectedResult.collect().get(0).f0, result.collect().get(0).f0);
         Assert.assertEquals(expectedResult.collect().get(0).f1, result.collect().get(0).f1);
         Assert.assertEquals(expectedResult.collect().get(0).f2, result.collect().get(0).f2);
+    }
+
+    @Test
+    public void testPrepareEdeList_empty() throws Exception {
+        List<Tuple3<Double, Double, Double>> edgeList = new ArrayList<>();
+        edgeList.add(Tuple3.of(2.0, 2.0, 1.0));
+        edgeList.add(Tuple3.of(1.0, 1.0, 1.0));
+        DataSet<Tuple3<Double, Double, Double>> edgeDataSet = env.fromCollection(edgeList);
+
+        DataSet<Tuple3<Double, Double, Double>> result = edgeDataSet
+              .filter(new LoopFilter())
+              .name("remove self loops")
+              .flatMap(new EdgeNormalizer())
+              .name("reverse edges => srcID < trgID")
+              .groupBy(0, 1)
+              .sum(2)
+              .name("combine multi edges");
+
+        Assert.assertTrue(result.collect().isEmpty());
     }
 }

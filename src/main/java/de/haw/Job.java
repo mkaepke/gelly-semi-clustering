@@ -11,6 +11,11 @@ import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.graph.Graph;
 import org.apache.flink.types.NullValue;
 
+/**
+ * Example job for running the Semi-Clustering algorithm by a comma separated edge-list as input file
+ *
+ * e.g.: --input /Users/path/to/your/edge/list.txt --algo vc
+ */
 public class Job {
 
   public static void main(String[] args) throws Exception {
@@ -21,7 +26,7 @@ public class Job {
     ParameterTool parameter = ParameterTool.fromArgs(args);
 
     /**
-     * set values for SemiClustering by arguments or keep default
+     * set values for Semi-Clustering by arguments or keep default
      */
     SemiParams semiParams = new SemiParams();
     semiParams.setMaxIterations(parameter.getInt("m", 2));
@@ -34,9 +39,8 @@ public class Job {
      * set up the execution environment
      */
     final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
-    env.setParallelism(parameter.getInt("p", 4));
+    env.setParallelism(parameter.getInt("p", 1));
     env.getConfig().enableObjectReuse();
-    env.getConfig().disableSysoutLogging();
 
     /**
      * read edge file
@@ -47,7 +51,7 @@ public class Job {
         .types(Double.class, Double.class, Double.class);
 
     /**
-     * prepare input
+     * prepare input and optimize edges
      */
     DataSet<Tuple3<Double, Double, Double>> preparedEdgeTuple = edgeTuples
         .filter(new LoopFilter())
@@ -64,15 +68,19 @@ public class Job {
     Graph<Double, NullValue, Double> inputGraph = Graph.fromTupleDataSet(preparedEdgeTuple, env);
 
     /**
-     * run SemiClustering
+     * run Semi-Clustering
      */
     Graph<Double, SemiVertexValue, Double> result;
     switch(parameter.getRequired("algo")) {
       case "sg" : result = inputGraph.run(new SemiClusteringSG(semiParams, env)); break;
-      case "vc" : result = inputGraph.run(new SemiClusteringPregel(semiParams, env)); break;
+      case "vc" : result = inputGraph.run(new SemiClusteringVC(semiParams, env)); break;
 
-      default : throw new IllegalArgumentException("choose: sg for scattergather or vc for vertex-centric/pregel");
+      default : throw new IllegalArgumentException("choose: sg for scatter-gather or vc for vertex-centric");
     }
-    System.err.println("num of vertices: " + result.numberOfVertices());
+
+    /**
+     * print for lazy execution
+     */
+    System.err.println(result.numberOfVertices());
   }
 }

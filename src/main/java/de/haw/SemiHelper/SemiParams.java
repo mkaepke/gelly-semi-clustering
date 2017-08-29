@@ -2,6 +2,9 @@ package de.haw.SemiHelper;
 
 import java.io.Serializable;
 
+/**
+ * helper class which includes all parameter to manipulate the Semi-Clustering
+ */
 public class SemiParams implements Serializable {
 
   private static final long serialVersionUID = -682514402747913528L;

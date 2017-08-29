@@ -12,11 +12,7 @@ import org.apache.flink.graph.spargel.GatherFunction;
 import org.apache.flink.graph.spargel.MessageIterator;
 
 /**
- * benutzerdefinierte Gatherfunktion (Einsammeln der Nachrichten und Knotenwert anpassen)
- * <p>
- * K - The type of the vertex key (the vertex identifier).
- * VV - The type of the vertex value (the state of the vertex).
- * Message - The type of the message sent between vertices along the edges.
+ * UDF gather function (collect all incoming messages and set new vertex value)
  */
 public class SemiGather extends GatherFunction<Double, SemiVertexValue, TreeSet<SemiCluster>> {
 

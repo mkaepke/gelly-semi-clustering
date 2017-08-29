@@ -8,16 +8,19 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.flink.graph.Edge;
 
+/**
+ * a SemiCluster holds all included vertices and its score
+ */
 public class SemiCluster implements Comparable<SemiCluster>, Serializable {
 
   private static final long serialVersionUID = 4665238766049346206L;
 
   private Map<Double, Set<Edge<Double, Double>>> vertexMap;    // Knoten-IDs im Cluster
 
-  private Double score;                // entspricht S der Formel
+  private Double score;               // entspricht S der Formel
   private Double weightInnerEdges;    // entspricht I_c der Formel
   private Double weightBoundedEdges;  // entspricht B_c der Formel
-  private Double factor;                // entspricht F_b der Formel
+  private Double factor;              // entspricht F_b der Formel
 
   public SemiCluster(SemiParams params) {
     this.factor = params.getFactor();
@@ -40,6 +43,9 @@ public class SemiCluster implements Comparable<SemiCluster>, Serializable {
     }
   }
 
+  /**
+   * calculate new score
+   */
   public void calculateScore() {
     /**
      * 		(I_c - f_b * B_c)
@@ -56,12 +62,11 @@ public class SemiCluster implements Comparable<SemiCluster>, Serializable {
   }
 
   /**
-   * @return Map mit allen Knoten im Cluster
+   * @return map with all vertices inside the SemiCluster
    */
   public Map<Double, Set<Edge<Double, Double>>> getVertexMap() {
     return vertexMap;
   }
-
 
   @Override
   public String toString() {

@@ -3,8 +3,8 @@ package de.haw;
 import de.haw.PrepareHelper.IncidentEdges;
 import de.haw.SemiHelper.SemiParams;
 import de.haw.SemiHelper.SemiVertexValue;
-import de.haw.SemiPregelHelper.SemiCombiner;
-import de.haw.SemiPregelHelper.SemiCompute;
+import de.haw.SemiVCHelper.SemiCombiner;
+import de.haw.SemiVCHelper.SemiCompute;
 import java.io.Serializable;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
@@ -15,7 +15,7 @@ import org.apache.flink.graph.Vertex;
 import org.apache.flink.types.NullValue;
 import org.apache.flink.util.Preconditions;
 
-public class SemiClusteringPregel implements GraphAlgorithm<Double, NullValue, Double, Graph<Double, SemiVertexValue, Double>>,
+public class SemiClusteringVC implements GraphAlgorithm<Double, NullValue, Double, Graph<Double, SemiVertexValue, Double>>,
     Serializable {
 
   private static final long serialVersionUID = 6514847000346414546L;
@@ -23,7 +23,7 @@ public class SemiClusteringPregel implements GraphAlgorithm<Double, NullValue, D
   private SemiParams semiParams;
   private ExecutionEnvironment env;
 
-  public SemiClusteringPregel(SemiParams semiParams, ExecutionEnvironment env) {
+  public SemiClusteringVC(SemiParams semiParams, ExecutionEnvironment env) {
     this.semiParams = semiParams;
     this.env = env;
   }

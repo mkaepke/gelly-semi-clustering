@@ -5,7 +5,7 @@ import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.util.Collector;
 
 /**
- * reverse edges -> srcID < trgID
+ * reverse edges => srcID < trgID
  */
 public class EdgeNormalizer implements FlatMapFunction<Tuple3<Double, Double, Double>, Tuple3<Double, Double, Double>> {
 

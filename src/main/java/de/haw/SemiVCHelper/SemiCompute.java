@@ -1,4 +1,4 @@
-package de.haw.SemiPregelHelper;
+package de.haw.SemiVCHelper;
 
 import de.haw.SemiHelper.SemiCluster;
 import de.haw.SemiHelper.SemiParams;
@@ -15,7 +15,6 @@ import org.apache.flink.graph.pregel.MessageIterator;
  * This method is invoked once per superstep, for each active vertex.
  * A vertex is active during a superstep, if at least one message was produced for it,
  * in the previous superstep. During the first superstep, all vertices are active.
- * <p>
  * This method can iterate over all received messages, set the new vertex value, and
  * send messages to other vertices (which will be delivered in the next superstep).
  **/

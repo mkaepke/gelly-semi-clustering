@@ -7,12 +7,7 @@ import org.apache.flink.graph.Vertex;
 import org.apache.flink.graph.spargel.ScatterFunction;
 
 /**
- * benutzerdefinierte Scatterfunktion (verschickt Nachrichten an benachbarte Knoten)
- * <p>
- * K - The type of the vertex key (the vertex identifier).
- * VV - The type of the vertex value (the state of the vertex).
- * Message - The type of the message sent between vertices along the edges.
- * EV - The type of the values that are associated with the edges.
+ * UDF scatter function (send message to all neighbours)
  */
 public class SemiScatter extends ScatterFunction<Double, SemiVertexValue, TreeSet<SemiCluster>, Double> {
 
@@ -20,9 +15,7 @@ public class SemiScatter extends ScatterFunction<Double, SemiVertexValue, TreeSe
 
   @Override
   public void sendMessages(Vertex<Double, SemiVertexValue> vertex) throws Exception {
-    /**
-     * jeder Knoten verschickt seine Clusterliste an alle seine Nachbarknoten
-     */
+
     sendMessageToAllNeighbors(vertex.getValue().getSemiClusterSet());
   }
 }

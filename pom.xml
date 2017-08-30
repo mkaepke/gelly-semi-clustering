@@ -22,7 +22,7 @@ under the License.
 
 	<groupId>de.haw</groupId>
 	<artifactId>gelly-semi-clustering</artifactId>
-	<version>0.2</version>
+	<version>0.3</version>
 	<packaging>jar</packaging>
 
 	<name>Flink Semi-Clustering</name>
@@ -173,7 +173,7 @@ under the License.
 								</goals>
 								<configuration>
 									<artifactSet>
-										<excludes combine.self="override"></excludes>
+										<excludes combine.self="override"/>
 									</artifactSet>
 								</configuration>
 							</execution>
